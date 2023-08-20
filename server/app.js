@@ -6,11 +6,15 @@ import helmet from 'helmet'
 import dotenv from 'dotenv'
 import morgan from 'morgan'
 import multer from 'multer'
-import path from 'path'
 import cors from 'cors'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
+// ................Routes.............//
+import userCtrl from './controller/authCtrl.js'
+import authRoutes from './routes/authRoutes.js'
+
 
 //==========CONFIGURATIONS===============//
 const __filename = fileURLToPath(import.meta.url)
@@ -19,6 +23,7 @@ dotenv.config({path: "./.env"})
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookieParser())
 app.use(morgan('common'))
 app.use(cors())
 app.use(bodyParser.json({limit:'30mb', extended:true}))
@@ -26,7 +31,8 @@ app.use(helmet.crossOriginResourcePolicy({policy:'cross-origin'}))
 app.use(bodyParser.urlencoded({limit:'30mb', extended:true}))
 app.use('/assets', express.static(path.join(__dirname, 'public/assets')))
 
-//==========STORAGE CONFIG===============//
+
+//==========IMAGE Uploads CONFIG===============//
 const storage = multer.diskStorage({
   destination: function(req,file,cb) {
     cb(null, 'public/assets')
@@ -39,6 +45,12 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({storage})
+
+// =============ROUTES====================//
+app.use('/users/auth', authRoutes)
+
+
+app.post('/users/auth/register', upload.single('picture'), userCtrl.registerUser)
 
 
 
