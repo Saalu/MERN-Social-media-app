@@ -1,16 +1,7 @@
 import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
-    firstName:{
-        type:String,
-        required:[true, 'This field is required'],
-        trim: true,
-        min:2,
-        max:50
-
-    },
-   
-    lastName:{
+const userSchema = new mongoose.Schema({  
+    userName:{
         type:String,
         required:[true, ' required field'],
         trim: true,
@@ -30,18 +21,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         min:5,
     },
-    picturePath:{
-        type:String,
-        default:""
-    },
-    friends:{
-        type:Array,
-        default:[]
-    },
-    location:String,
-    occupation: String,
-    viewedProfile: Number,
-    impressions: Number,
+
 
 }, {tiimestamps:true})
 

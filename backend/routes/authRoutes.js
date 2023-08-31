@@ -7,7 +7,7 @@ const router = express.Router()
 
 router.post('/login', authCtrl.loginUser)
 router.post('/logout', authCtrl.logout)
-router.get('/', authCtrl.getAll)
+router.get('/', authCtrl.verifyToken, authCtrl.getAll)
 
 // router.route('/:id' ).get(userCtrl.getSingleUser).patch(userCtrl.updateUser).delete(userCtrl.deleteUser)
 
