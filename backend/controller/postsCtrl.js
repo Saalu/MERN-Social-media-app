@@ -12,7 +12,6 @@ createPost: async (req,res) => {
       const {userId, title,content,creator,impressions} = req.body
       const user = await User.findById(id)
       // console.log({user})
-    
        const newPost = new Post({
         userId:user._id,
         title, 
@@ -23,7 +22,6 @@ createPost: async (req,res) => {
        })
 
        const posts = await newPost.save()
-      // const posts = await Post.find()
         res.status(201).json({
             status:' success',
             msg:`${user.userName}, created a new post  `,

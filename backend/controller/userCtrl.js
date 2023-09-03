@@ -47,14 +47,17 @@ loginUser: async (req,res) => {
         const token = jwt.sign({id:user._id}, process.env.TOKEN_SECRET,{expiresIn: '1d'})
 
         res.cookie('token', token, { httpOnly: true, maxAge: 3600000 }); // Max age: 1 hour
+
+
         res.status(201).json({
-            status:'Logged in successfully',
-            msg:`${user.userName}, you logged in`,
+            status:'true',
+            msg: 'Successfully Logged In',
+            user: user.userName,
             token: token
         })
         
     } catch (err) {
-        res.status(500).json({status:'failed', msg:err.message})
+        res.status(500).json({status:'false', msg:err.message})
 
     }},
 
@@ -69,17 +72,16 @@ logout: async(req,res) =>{
         )
 
         res.status(201).json({
-            status:'logout success',
+            status:'Successfully Logout',
         })
     } catch (err) {
-        res.status(500).json({status:'failed', error:err.message})
+        res.status(500).json({status:'failed', error: err.message})
         
     }
 },   
 
 verifyToken: async (req,res,next) => {
-        try {
-         
+        try {         
             const token = req.cookies.token
     
            if(!token) return res.status(401).json({msg: ' No token provided'})
@@ -88,9 +90,9 @@ verifyToken: async (req,res,next) => {
            if(err) return res.status(401).json({msg: 'Invalid token'})
 
            req.user = decoded
-           next()
-
-           })
+           
+        })
+        next()
             
         } catch (err) {
             res.status(500).json({status:'failed', error:err.message})
@@ -115,7 +117,21 @@ verifyToken: async (req,res,next) => {
 
 },
 // GET SINGLE METHOD
-
+getUser: async(req,res) => {
+    const userId = req.params.id
+    try {
+      const user = await User.findById(userId)
+  
+      res.json({
+          status:'success',
+          data:user
+      })
+      
+    } catch (err) {
+      res.status(500).json({status:'failed', error:err.message})   
+    }
+  
+  },
 // UPDATE METHOD
  updateUser: (req,res) => {   
 
