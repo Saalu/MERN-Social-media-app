@@ -7,10 +7,15 @@ import Navbar from './Navbar';
 
 const Posts = () => {
   return (
-    <div>
-      {/* <Navbar/> */}
+    <div className='container'>
+   
+     {/* <Navbar/> */}
+     
+     {/* <section className='posts'> */}
+
       <h2>POSTS GOES HERER</h2>
-      .post-container
+     {/* </section> */}
+
     </div>
   )
 }

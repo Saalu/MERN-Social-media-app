@@ -120,7 +120,7 @@ verifyToken: async (req,res,next) => {
 getUser: async(req,res) => {
     const userId = req.params.id
     try {
-      const user = await User.findById(userId)
+      const user = await User.findById(userId, '-password')
   
       res.json({
           status:'success',

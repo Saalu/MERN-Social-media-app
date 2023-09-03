@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+// import {useNavigation} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+
 import './Login.css'
-const Login = ({setIsLogin}) => {
+
+
+const Login = ({setUser}) => {
+  const navigate = useNavigate()
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [status, setStatus] = useState('')
@@ -20,10 +27,11 @@ const Login = ({setIsLogin}) => {
           setPassword('');
 
         
-
+          navigate('/posts')
+          setUser(res.data.user)
     console.log({status:res.data.status},{token:res.data.token}) 
     localStorage.setItem('storedToken', res.data.token)
-    setIsLogin(res.data.status)
+    // setIsLogin(res.data.status)
     setError(res.data.msg)
     // console.log()
 } catch (error) {

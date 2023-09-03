@@ -1,7 +1,14 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 import './Login.css'
-const Login = () => {
+
+
+
+
+const Signup = () => {
+  const navigate = useNavigate()
+
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -19,6 +26,8 @@ const Login = () => {
           setUserName('');
           setEmail('');
           setPassword('');
+
+          navigate('/login')
        console.log(res.data.status) 
     } catch (error) {
         console.log(error.message)
@@ -47,4 +56,4 @@ const Login = () => {
     // =============Origin==========
 
 
-export default Login
+export default Signup
