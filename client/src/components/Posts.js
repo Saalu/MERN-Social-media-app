@@ -8,8 +8,9 @@ import Navbar from './Navbar';
 const Posts = () => {
   return (
     <div>
-      <Navbar/>
+      {/* <Navbar/> */}
       <h2>POSTS GOES HERER</h2>
+      .post-container
     </div>
   )
 }
