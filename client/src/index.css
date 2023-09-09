@@ -32,12 +32,15 @@ body{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   /* background-color: rgb(68, 132, 243); */
   background-color: auto;
-  border-bottom: solid gainsboro 1px;
+  /* border-bottom: solid gainsboro 1px; */
   width: 100%;
   padding: 1rem 1.5rem;
 }
+
+/* Logout */
 .logout{
   display: flex
 }
@@ -48,8 +51,8 @@ body{
 .logout ul li a{
   margin: 5px ;
   font-weight: 600;
-  color: orange;
-  color:#666;
+  /* color: orange;
+  color:#666; */
 
 }
 .logout ul li:hover{
@@ -58,10 +61,69 @@ body{
 }
 .logout button{
   padding: .5rem 1.5rem;
-  background-color: orange;
+  border: 1px solid #444;
   font-weight: 500;
-  color: white;
-  border: none;
   border-radius: 4px;
   cursor: pointer;
 }
+
+/* ===========Hero ============ */
+
+.home-container{
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+width: 450px;
+margin-top: 50px;
+
+}
+
+.home-container h2{
+  font-size: 42px;
+}
+.home-container p{
+  margin: 20px 0;
+  font-size: 20px;
+  width: 400px;
+  text-align: justify;
+}
+
+.links{
+ margin: 10px;
+ margin-top: 20px;
+}
+.links .btn a{
+  margin: 5px;
+font-weight: 500;
+font-size: large;
+padding: 10px 60px;
+border: solid .5px black;
+border-radius: 4px;
+}
+
+.links .btn.login a{
+background: #178733;
+color: white;
+border-color: #178733;
+cursor: pointer;
+
+}
+.links .btn.signup a{
+  border-color: #178733;
+  color:#178733 ;
+  cursor: pointer;
+
+}
+
+.links .btn.login a:hover {
+  background:  #328d49;
+  transition: ;
+
+}
+.links .btn.signup a:hover {
+background: #178733;
+color: #fff;
+
+}
+
