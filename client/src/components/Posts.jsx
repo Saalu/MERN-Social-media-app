@@ -7,9 +7,16 @@ import Navbar from './Navbar';
 
 const Posts = () => {
   return (
-    <div>
-      <Navbar/>
+    <div className='container'>
       <h2>POSTS GOES HERER</h2>
+   
+     {/* <Navbar/> */}
+     
+     {/* <section className='posts'> */}
+
+      <h2>POSTS GOES HERER</h2>
+     {/* </section> */}
+
     </div>
   )
 }

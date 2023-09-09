@@ -39,20 +39,21 @@ loginUser: async (req,res) => {
         const { email,password,} = req.body
         const user = await User.findOne({email})
  
-        if(!user) return res.status(404).json({msg: 'User does not exist'})
+        if(!user) return res.status(404).json({msg: 'User does not exist.'})
     
         const isMatch = await compare(password, user.password)
-        if(!isMatch) return res.status(404).json({msg: 'Invalid credentials'})
+        if(!isMatch) return res.status(404).json({msg: 'Incorrect username or password.'})
 
         const token = jwt.sign({id:user._id}, process.env.TOKEN_SECRET,{expiresIn: '1d'})
 
         res.cookie('token', token, { httpOnly: true, maxAge: 3600000 }); // Max age: 1 hour
 
-
         res.status(201).json({
             status:'true',
             msg: 'Successfully Logged In',
             user: user.userName,
+            userId: user.id,
+            email: user.email,
             token: token
         })
         
@@ -120,7 +121,7 @@ verifyToken: async (req,res,next) => {
 getUser: async(req,res) => {
     const userId = req.params.id
     try {
-      const user = await User.findById(userId)
+      const user = await User.findById(userId, '-password')
   
       res.json({
           status:'success',
@@ -133,12 +134,43 @@ getUser: async(req,res) => {
   
   },
 // UPDATE METHOD
- updateUser: (req,res) => {   
+ updateUser: async(req,res) => {   
+try {
 
-    res.json({
-    status:'success',
-    data:"Updating nft"
-})},
+    const userId = await User.findById(req.user.id)
+    console.log(userId)
+    const {userName, email,password,} = req.body
+    
+    const user = userId
+    if(user){
+        user.userName = userName || user.userName
+        user.email = email || user.email
+        
+        if(password){
+                 const passwordHash = await hash(password, 10)
+                user.password = passwordHash
+             }
+
+            const updatedUser = await user.save()
+            
+            // const updatedUser = await User.findByIdAndUpdate(user, updatedUserData, {
+    //     new: true
+    //   });
+  
+      res.json({
+          status:'Updated user successfully',
+          data:updatedUser
+        })
+    }else{
+    return res.status(404).json({ msg: 'User not found' });
+
+    }
+} catch (err) {
+    return res.status(500).json({ msg:err.message });
+    
+}
+ },
+
 // DELETE METHOD
  deleteUser: (req,res) => {   
 

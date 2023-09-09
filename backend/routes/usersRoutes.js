@@ -10,7 +10,7 @@ router.post('/login', userCtrl.loginUser)
 router.post('/logout', userCtrl.logout)
 router.get('/', userCtrl.verifyToken, userCtrl.getAll)
 
-router.route('/:id' ).get(userCtrl.getUser).patch(userCtrl.updateUser).delete(userCtrl.deleteUser)
+router.route('/profile' ).get(userCtrl.getUser).patch( userCtrl.verifyToken,userCtrl.updateUser).delete(userCtrl.deleteUser)
 
 
 
